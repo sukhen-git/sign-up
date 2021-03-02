@@ -51,7 +51,7 @@ public class LdapSignUpController {
 			repository.createUser(usr);
 			//repository.addMemberToGroup("IT","IT_ADMIN", usr);
 			repository.addMemberToGroup(dept,role, usr);
-			return new ResponseEntity<String>("user created", HttpStatus.OK);
+			return new ResponseEntity<String>("User Created Successfully..", HttpStatus.OK);
 		}
 	}
 	

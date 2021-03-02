@@ -65,7 +65,7 @@
 	</dependencies>
 
 	<build>
-	<finalName>signup</finalName>
+	<finalName>ttd-signup</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
