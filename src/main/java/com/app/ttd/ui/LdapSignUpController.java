@@ -43,13 +43,14 @@ public class LdapSignUpController {
 	}
 	
 	@PostMapping(path = "/signup")
-	public ResponseEntity<String> userSignUp(@RequestBody SignupObject usr)  {
+	public ResponseEntity<String> userSignUp(@RequestBody SignupObject usr, @RequestParam("dept") String dept, @RequestParam("role") String role)  {
 		
 		if(checkUserExist(usr.getUid())) {
 			return new ResponseEntity<String>("User id Already Exists....", HttpStatus.BAD_REQUEST);
 		} else {
 			repository.createUser(usr);
-			repository.addMemberToGroup("IT","IT_ADMIN", usr);
+			//repository.addMemberToGroup("IT","IT_ADMIN", usr);
+			repository.addMemberToGroup(dept,role, usr);
 			return new ResponseEntity<String>("user created", HttpStatus.OK);
 		}
 	}
