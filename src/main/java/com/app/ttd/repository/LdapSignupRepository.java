@@ -83,20 +83,32 @@ public class LdapSignupRepository {
 	public void addMemberToGroup(String groupName, String role, SignupObject p) {
 		Name groupDn = buildGroupDn(groupName, role);
 		Name personDn = buildPersonDn(p);
-
 		DirContextOperations ctx = ldapTemplate.lookupContext(groupDn);
 		ctx.addAttributeValue("uniqueMember", personDn);
 
 		ldapTemplate.modifyAttributes(ctx);
 	}
+	
+	public void addMemberToGroup1(String dept, String role, String uid) {
+		Name groupDn = buildGroupDn(dept, role);
+		Name personDn = buildPersonDn1(uid);
+		DirContextOperations ctx = ldapTemplate.lookupContext(groupDn);
+		ctx.addAttributeValue("uniqueMember", personDn);
+		ldapTemplate.modifyAttributes(ctx);
+	}
 
-	private Name buildGroupDn(String groupName, String role) {
-		return LdapNameBuilder.newInstance().add("ou", "groups").add("ou", groupName).add("cn", role).build();
+	private Name buildGroupDn(String dept, String role) {
+		return LdapNameBuilder.newInstance().add("ou", "groups").add("ou", dept).add("cn", role).build();
 	}
 
 	private Name buildPersonDn(SignupObject obj) {
 		return LdapNameBuilder.newInstance().add("dc", "com").add("dc", "ttd").add("ou", "people")
 				.add("uid", obj.getUid()).build();
+	}
+	
+	private Name buildPersonDn1(String uid){
+		return LdapNameBuilder.newInstance().add("dc", "com").add("dc", "ttd").add("ou", "people")
+				.add("uid", uid).build();
 	}
 
 	public String changePassword(String emailId, String newPassword) {
